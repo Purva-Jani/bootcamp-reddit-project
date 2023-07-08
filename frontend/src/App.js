@@ -5,6 +5,14 @@ import AddPost from './components/AddPost'
 import SortBy from './components/SelectDateRange'
 
 const App = () => {
+
+  const [like, likeSelected] = React.useState(0)
+  const [dislike, dislikeSelected] = React.useState(0)
+
+  const toggleLike = () => like === 0 ? likeSelected(1) : likeSelected(0)
+
+  const toggleDislike = () => dislike === 0 ? dislikeSelected(1) : dislikeSelected(0)
+
   const [posts, setPosts] = React.useState([])
   const headers = { 'Content-Type': 'application/json' }
   const getPosts = () => {
@@ -115,8 +123,12 @@ const App = () => {
           onCommentDelete={deleteComment}
           onCommentEdit={editComment}
           onSubComment={createSubComment}
+          upVote={toggleLike}
+          downVote={toggleDislike}
         />
       ))}
+      <p>Upvotes: {like}</p>
+      <p>Downvotes: {dislike}</p>
     </>
   )
 }
